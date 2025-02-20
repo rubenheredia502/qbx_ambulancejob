@@ -17,17 +17,17 @@ local function alertAmbulance(src, text)
 	end
 end
 
-local function registerArmory()
-	for _, armory in pairs(sharedConfig.locations.armory) do
-		exports.ox_inventory:RegisterShop(armory.shopType, armory)
-	end
-end
+-- local function registerArmory()
+--	for _, armory in pairs(sharedConfig.locations.armory) do
+--		exports.ox_inventory:RegisterShop(armory.shopType, armory)
+--	end
+-- end
 
-local function registerStashes()
-    for _, stash in pairs(sharedConfig.locations.stash) do
-        exports.ox_inventory:RegisterStash(stash.name, stash.label, stash.slots, stash.weight, stash.owner, stash.groups, stash.location)
-    end
-end
+-- local function registerStashes()
+--    for _, stash in pairs(sharedConfig.locations.stash) do
+--        exports.ox_inventory:RegisterStash(stash.name, stash.label, stash.slots, stash.weight, stash.owner, stash.groups, stash.location)
+--    end
+-- end
 
 RegisterNetEvent('hospital:server:ambulanceAlert', function(text)
 	if GetInvokingResource() then return end
@@ -56,7 +56,7 @@ RegisterNetEvent('hospital:server:TreatWounds', function(playerId)
 	local patient = exports.qbx_core:GetPlayer(playerId)
 	if player.PlayerData.job.type ~= 'ems' or not patient then return end
 
-	exports.ox_inventory:RemoveItem(src, 'bandage', 1)
+	exports['qs-inventory']:RemoveItem(src, 'bandage', 1)
 	TriggerClientEvent('hospital:client:HealInjuries', patient.PlayerData.source, 'full')
 end)
 
@@ -68,7 +68,7 @@ RegisterNetEvent('hospital:server:RevivePlayer', function(playerId)
 
 	if not patient then return end
 
-	exports.ox_inventory:RemoveItem(player.PlayerData.source, 'firstaid', 1)
+	exports['qs-inventory']:RemoveItem(player.PlayerData.source, 'firstaid', 1)
 	TriggerClientEvent('qbx_medical:client:playerRevived', patient.PlayerData.source)
 end)
 
@@ -147,12 +147,12 @@ local function triggerItemEventOnPlayer(src, item, event)
 	local player = exports.qbx_core:GetPlayer(src)
 	if not player then return end
 
-	if exports.ox_inventory:Search(src, 'count', item.name) == 0 then return end
+	-- if exports.ox_inventory:Search(src, 'count', item.name) == 0 then return end
 
 	local removeItem = lib.callback.await(event, src)
 	if not removeItem then return end
 
-	exports.ox_inventory:RemoveItem(src, item.name, 1)
+	exports['qs-inventory']:RemoveItem(src, item.name, 1)
 end
 
 exports.qbx_core:CreateUseableItem('ifaks', function(source, item)
@@ -180,6 +180,6 @@ end)
 AddEventHandler('onResourceStart', function(resource)
     if resource ~= GetCurrentResourceName() then return end
 
-    registerArmory()
-    registerStashes()
+    -- registerArmory()
+    -- registerStashes()
 end)
