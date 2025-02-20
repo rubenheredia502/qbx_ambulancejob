@@ -61,7 +61,7 @@ end)
 
 ---@param src number
 local function wipeInventory(src)
-	exports.ox_inventory:ClearInventory(src)
+	exports['qs-inventory']:ClearInventory(src)
 	exports.qbx_core:Notify(src, locale('error.possessions_taken'), 'error')
 end
 
