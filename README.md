@@ -1,3 +1,6 @@
+
+[qbx_ambulancejob](https://github.com/Qbox-project/qbx_ambulancejob) Thanks to [Qbox-project](https://github.com/Qbox-project) for creating the qbx_ambulancejob resource and bringing so much value to the community 😊
+
 # qb-ambulancejob
 EMS Job. See qbx_medical for medical system
 
